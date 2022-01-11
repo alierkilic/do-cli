@@ -18,6 +18,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/alierkilic/do-cli/data"
 	"github.com/spf13/cobra"
 )
 
@@ -27,6 +28,10 @@ var listCmd = &cobra.Command{
 	Short: "List all of your tasks",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("list called")
+		tasks := data.GetTasks()
+		for i, task := range tasks {
+			fmt.Printf("Task %d: %s\n", i, task.Task)
+		}
 	},
 }
 

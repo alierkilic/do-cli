@@ -2,7 +2,10 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
 
+	"github.com/alierkilic/do-cli/data"
+	"github.com/alierkilic/do-cli/model"
 	"github.com/spf13/cobra"
 )
 
@@ -13,16 +16,13 @@ var addCmd = &cobra.Command{
 		switch taskLength := len(args); taskLength {
 		case 0:
 			fmt.Println("Please give a task")
-		case 1:
-			fmt.Printf("added task: %s", args[0])
 		default:
-			fmt.Printf("added tasks: ")
-			for _, arg := range args {
-				fmt.Printf("%s ", arg)
+			task := &model.NewTask{
+				Task: strings.Join(args, " "),
 			}
-			fmt.Println()
+			data.SaveTask(task)
+			fmt.Printf("added task: %s\n", task.Task)
 		}
-
 	},
 }
 
