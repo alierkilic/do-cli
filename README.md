@@ -1,2 +1,3 @@
-# do-cli
-To-do app CLI written in Go
+# task
+
+To-do CLI written in Go

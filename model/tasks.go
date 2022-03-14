@@ -5,7 +5,7 @@ type NewTask struct {
 }
 
 type Task struct {
-	ID   string `json:"id"`
+	ID   int    `json:"id"`
 	Task string `json:"task"`
 	Done int    `json:"done"`
 }
