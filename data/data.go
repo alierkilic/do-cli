@@ -52,6 +52,28 @@ func SaveTask(task *model.NewTask) int64 {
 	return int64(id)
 }
 
+func DeleteTask(id int) {
+	sqlStatement := `DELETE FROM tasks WHERE id = $1`
+	
+	_, err := Db.Exec(sqlStatement, id)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println("Deleted task with ID: ", id)
+}
+
+func CompleteTask(id int) {
+	sqlStatement := `UPDATE tasks SET done=1 WHERE id = $1`
+	
+	_, err := Db.Exec(sqlStatement, id)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println("Completed task with ID: ", id)
+}
+
 func GetTasks() []model.Task {
 	sqlStatement := `SELECT * FROM tasks`
 	rows, err := Db.Query(sqlStatement)

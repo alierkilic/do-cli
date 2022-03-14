@@ -15,7 +15,7 @@ var addCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		switch taskLength := len(args); taskLength {
 		case 0:
-			fmt.Println("Please give a task")
+			fmt.Println("Don't be lazy... give me a task")
 		default:
 			task := &model.NewTask{
 				Task: strings.Join(args, " "),

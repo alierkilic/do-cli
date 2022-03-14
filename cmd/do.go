@@ -17,7 +17,9 @@ package cmd
 
 import (
 	"fmt"
+	"strconv"
 
+	"github.com/alierkilic/do-cli/data"
 	"github.com/spf13/cobra"
 )
 
@@ -26,7 +28,22 @@ var doCmd = &cobra.Command{
 	Use:   "do",
 	Short: "Marks a task as complete",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("do called")
+		switch taskLength := len(args); taskLength {	
+	case 0:
+		fmt.Println("Don't be lazy... give me a task")
+	case 1:
+		id, err := strconv.Atoi(args[0])
+		if err != nil {
+			fmt.Println("ID is invalid...")
+			return
+		}
+		data.CompleteTask(id)
+		fmt.Printf("completed task: %d\n", id)
+	default:
+		fmt.Println("Too many tasks...")
+	}
+	
+
 	},
 }
 
