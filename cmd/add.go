@@ -17,15 +17,21 @@ var addCmd = &cobra.Command{
 		case 0:
 			fmt.Println("Don't be lazy... give me a task")
 		default:
+
+			dstatus, _ := cmd.Flags().GetBool("daily")
 			task := &model.NewTask{
-				Task: strings.Join(args, " "),
+				Task:  strings.Join(args, " "),
+				Daily: dstatus,
 			}
 			data.SaveTask(task)
 			fmt.Printf("added task: %s\n", task.Task)
 		}
+
 	},
 }
 
 func init() {
 	RootCmd.AddCommand(addCmd)
+
+	addCmd.Flags().BoolP("daily", "D", false, "List daily items")
 }

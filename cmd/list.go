@@ -17,7 +17,12 @@ var listCmd = &cobra.Command{
 		if dstatus { // if status is true, call addFloat
 			ListDoneTodos()
 		} else {
-			ListTodos()
+			dailystatus, _ := cmd.Flags().GetBool("daily")
+			if dailystatus {
+				ListTodos(true)
+			} else {
+				ListTodos(false)
+			}
 		}
 
 	},
@@ -27,11 +32,12 @@ func init() {
 	RootCmd.AddCommand(listCmd)
 
 	listCmd.Flags().BoolP("done", "d", false, "List done items")
+	listCmd.Flags().BoolP("daily", "D", false, "List daily items")
 
 }
 
-func ListTodos() {
-	tasks := data.GetTasks()
+func ListTodos(daily bool) {
+	tasks := data.GetTasks(daily)
 	for _, task := range tasks {
 		fmt.Printf("Task %d: %s\n", task.ID, task.Task)
 	}
